@@ -45,5 +45,5 @@ Copyright © 2026 Michael Grafiel Sayson Puno
   year         = {2026},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.[YOUR_ZENODO_DOI_HERE]},
-  url          = {https://github.com/[your-username]/folding-calculus}
+  url          = {https://github.com/Puronbo/folding-calculus}
 }
