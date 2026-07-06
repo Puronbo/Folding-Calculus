@@ -44,6 +44,6 @@ Copyright © 2026 Michael Grafiel Sayson Puno
   title        = {Folding Calculus: Derivatives as Folds, Integrals as Unfolds, and Creases as Primary Objects},
   year         = {2026},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.[YOUR_ZENODO_DOI_HERE]},
+  doi          = {10.5281/zenodo.21217457},
   url          = {https://github.com/Puronbo/folding-calculus}
 }
