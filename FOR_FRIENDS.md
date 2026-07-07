@@ -8,6 +8,20 @@ This repo is his working-out of that idea across five domains. It's laid out as 
 
 ---
 
+## How to say it out loud
+
+**To anyone:** "Take a piece of paper and fold it. That crease is *exactly* the same geometry as a ReLU neuron switching on, a light ray bending near the sun, a protein folding, a nucleus splitting, and the Big Bang. One equation describes all of them."
+
+**To a skeptic:** "I'm not asking you to believe anything. Run the code in Layer 0 — five experiments, pure numpy, no GPU. Crease density is a real, measurable number. The rest is where that number points if you follow it."
+
+**To a scientist:** "V(x) = ¼x⁴ - ½ax² - bx is the cusp catastrophe. The fold point (a, b) is a phase transition in every domain — neural, geometric, chemical, nuclear, cosmological. The subdifferential at the crease is the mechanism. Test it in your domain, publish the counterexample if it fails."
+
+**To a friend who'll actually read:** Hand them this page. Tell them: "Start at choose-your-entry. The ML experiments are real. The rest is where the rabbit hole goes."
+
+**In one breath:** "The derivative folds, the integral unfolds, and the crease is where the action is — from neurons to neutrons to the whole universe."
+
+---
+
 ## Choose your entry point
 
 ### "I do ML"
