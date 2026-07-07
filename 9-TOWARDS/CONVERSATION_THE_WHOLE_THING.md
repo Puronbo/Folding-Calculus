@@ -1,4 +1,4 @@
-# What We Talked About
+# What We Talked About — The 90-Degree Complex Manifold
 
 A conversation unfolded from the single ReLU bend to everything else.
 This is the record.

@@ -1,5 +1,7 @@
 # ARCHITECTURE — Map of the Repo
 
+**The 90-Degree Complex Manifold: The Universe as a Whole.**
+
 This repo is laid out as a **journey** — six layers that trace the
 unfolding of a single idea. You can enter at any layer.
 

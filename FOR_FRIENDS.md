@@ -4,7 +4,7 @@
 
 > *The derivative folds. The integral unfolds. The crease is where the action is.*
 
-This repo is his working-out of that idea across five domains. It's laid out as a journey — you can enter at any layer.
+He called it the **90-Degree Complex Manifold** — the observation that every fold in the universe, from neurons to neutrons to galaxies, is the same 90° crease repeating at every scale. This repo is his working-out of that idea across five domains. It's laid out as a journey — you can enter at any layer.
 
 ---
 

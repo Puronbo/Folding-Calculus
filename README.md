@@ -1,9 +1,11 @@
-# Crease Density: Folding, Unfolding, and the Geometry of Everything
+# 90-Degree Complex Manifold — The Universe as a Whole
+
+**Also known as: Crease Density — Folding, Unfolding, and the Geometry of Everything.**
 
 This repository contains code and writing that started with **crease
 density** — a metric for ReLU neural networks — and unfolded into a
 framework connecting calculus, relativity, chemistry, nuclear physics,
-and cosmology through a single geometric idea.
+and cosmology through a single geometric idea: the 90-degree fold.
 
 **Start here**: [`FOR_FRIENDS.md`](FOR_FRIENDS.md) — a shareable entry
 point for every audience.
@@ -20,6 +22,8 @@ point for every audience.
 > **V(x) = ¼x⁴ - ½ax² - bx**
 >
 > *The derivative folds. The integral unfolds. The crease is where the action is.*
+>
+> **The universe is a 90-degree complex manifold. Every fold — in spacetime, in chemistry, in life — is the same crease at a different scale.**
 
 ---
 
