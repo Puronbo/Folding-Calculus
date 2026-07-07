@@ -20,6 +20,8 @@ He called it the **90-Degree Complex Manifold** — the observation that every f
 
 **In one breath:** "The derivative folds, the integral unfolds, and the crease is where the action is — from neurons to neutrons to the whole universe."
 
+**Start here:** [`0-ROOTS/THE_UNFOLDING.md`](0-ROOTS/THE_UNFOLDING.md) — a five-layer explanation that builds from "fold a piece of paper" to the full framework, one layer at a time.
+
 ---
 
 ## Choose your entry point
