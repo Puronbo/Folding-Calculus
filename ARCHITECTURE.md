@@ -43,7 +43,8 @@ Folding-Calculus/
 └── 9-TOWARDS/               # OPEN-ENDED — WHAT THIS POINTS TO
     ├── CREASE_PRINCIPLE.md  #   Unified statement of the framework
     ├── OPEN_QUESTIONS.md    #   What's still unknown
-    └── PUNO_DOCUMENTS.md    #   Production roadmap
+    ├── PUNO_DOCUMENTS.md    #   Production roadmap
+    └── CONVERSATION_THE_WHOLE_THING.md  # Everything unfolded from one ReLU bend
 ```
 
 ## The Narrative Arc
