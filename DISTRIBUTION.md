@@ -57,8 +57,12 @@ git push codeberg main
 
 ## Internet Archive
 
-The key documents are archived at:
-https://archive.org/details/@puronbo
+Upload pending — requires IA account setup. See `.github/ISSUE_TEMPLATE/mirror_setup.md`
+for step-by-step instructions to upload and get a permanent identifier.
+
+## Zenodo DOI
+
+Pending — link GitHub repo to Zenodo for auto-DOI on each release.
 
 ---
 
