@@ -17,6 +17,12 @@ point for every audience.
 
 ---
 
+> **V(x) = ¼x⁴ - ½ax² - bx**
+>
+> *The derivative folds. The integral unfolds. The crease is where the action is.*
+
+---
+
 ## The Repo as a Journey
 
 The repository is organized into layers. Each layer builds on the one
