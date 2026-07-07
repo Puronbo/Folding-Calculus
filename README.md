@@ -78,6 +78,14 @@ The full monograph is available at
 [`0-ROOTS/THE_BOOK_OF_PUNO.md`](0-ROOTS/THE_BOOK_OF_PUNO.md) (markdown)
 and [`book/the_book_of_puno.pdf`](book/the_book_of_puno.pdf) (PDF).
 
+A companion website is live at
+[calculus-unfolded--muronbo.replit.app](https://calculus-unfolded--muronbo.replit.app).
+
+**Key insight — fold-and-cut in N dimensions:** The universal approximation
+theorem for ReLU networks is the geometric *fold-and-cut theorem* in N
+dimensions. Any polytope can be realized by folding the input space with
+ReLU hyperplanes and making one linear cut. Learning = placing the folds.
+
 ## Author
 
 Michael Grafiel Sayson Puno.
