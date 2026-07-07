@@ -8,6 +8,11 @@ and cosmology through a single geometric idea.
 **Start here**: [`FOR_FRIENDS.md`](FOR_FRIENDS.md) — a shareable entry
 point for every audience.
 
+[![GitHub Release](https://img.shields.io/github/v/release/Puronbo/Folding-Calculus?label=release)](https://github.com/Puronbo/Folding-Calculus/releases)
+[![IPFS](https://img.shields.io/badge/IPFS-pinned-green)](https://ipfs.io/ipfs/QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
+[![GitHub Pages](https://img.shields.io/badge/Pages-live-blue)](https://Puronbo.github.io/Folding-Calculus)
+
 ---
 
 ## The Repo as a Journey
@@ -66,6 +71,19 @@ and [`book/the_book_of_puno.pdf`](book/the_book_of_puno.pdf) (PDF).
 Michael Grafiel Sayson Puno.
 
 LMAO
+
+## Distribution
+
+| Platform | Link |
+|----------|------|
+| GitHub (primary) | https://github.com/Puronbo/Folding-Calculus |
+| GitHub Pages | https://Puronbo.github.io/Folding-Calculus |
+| IPFS | `QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD` |
+| Internet Archive | https://archive.org/details/@puronbo |
+| GitLab mirror | https://gitlab.com/Puronbo/Folding-Calculus |
+| Codeberg mirror | https://codeberg.org/Puronbo/Folding-Calculus |
+
+See [`DISTRIBUTION.md`](DISTRIBUTION.md) for how to pin, mirror, and share.
 
 ## License
 
