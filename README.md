@@ -56,8 +56,7 @@ is a small standalone plot of the `|x|` crease that motivates the whole idea.
 
 Michael Grafiel Sayson Puno.
 
-<!-- Add anything you want here — a note, a dedication, a link. This line
-is left for you to write, not generated on your behalf. -->
+LMAO
 
 ## License
 
