@@ -1,0 +1,6 @@
+numpy
+matplotlib
+scipy
+
+# torch is only required for puno_torch.py — everything else uses pure numpy
+# torch
