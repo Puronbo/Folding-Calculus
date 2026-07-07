@@ -42,10 +42,10 @@ Upload the tarball from the GitHub release and it will produce the same CID.
 | Platform | URL | Status |
 |----------|-----|--------|
 | GitHub (primary) | https://github.com/Puronbo/Folding-Calculus | Live |
-| GitLab | https://gitlab.com/Puronbo/Folding-Calculus | Ready to push |
-| Codeberg | https://codeberg.org/Puronbo/Folding-Calculus | Ready to push |
+| GitLab | https://gitlab.com/Puronbo/Folding-Calculus | Needs repo+token setup |
+| Codeberg | https://codeberg.org/Puronbo/Folding-Calculus | Needs repo+token setup |
 
-To push to all mirrors:
+To push to mirrors once repos exist and tokens are scoped:
 ```bash
 git remote add gitlab https://gitlab.com/Puronbo/Folding-Calculus.git
 git remote add codeberg https://codeberg.org/Puronbo/Folding-Calculus.git
@@ -57,12 +57,17 @@ git push codeberg main
 
 ## Internet Archive
 
-Upload pending — requires IA account setup. See `.github/ISSUE_TEMPLATE/mirror_setup.md`
-for step-by-step instructions to upload and get a permanent identifier.
+The repository is archived on the Internet Archive for long-term preservation.
+
+**Item page:** https://archive.org/details/puno-calculus-v1
 
 ## Zenodo DOI
 
-Pending — link GitHub repo to Zenodo for auto-DOI on each release.
+A DOI has been reserved for this repository:
+
+**DOI:** [10.5281/zenodo.21217457](https://doi.org/10.5281/zenodo.21217457)
+
+For auto-DOI on future releases, link the GitHub repo to Zenodo.
 
 ---
 
@@ -77,8 +82,9 @@ Pending — link GitHub repo to Zenodo for auto-DOI on each release.
 ## Badges
 
 ```markdown
-[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-blue)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21217457-blue)](https://doi.org/10.5281/zenodo.21217457)
 [![IPFS](https://img.shields.io/badge/IPFS-QmSUdo...-green)](https://ipfs.io/ipfs/QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD)
+[![Internet Archive](https://img.shields.io/badge/Archive-live-black)](https://archive.org/details/puno-calculus-v1)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 [![GitHub Release](https://img.shields.io/github/v/release/Puronbo/Folding-Calculus)](https://github.com/Puronbo/Folding-Calculus/releases)
 ```
