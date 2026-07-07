@@ -83,6 +83,28 @@ History unfolds. Church pins the creases. Money counts them. Same framework, thr
 
 ---
 
+## The Formal Definition — Complex Manifold = Fold Manifold
+
+A complex manifold is a space that locally looks like ℂⁿ, with holomorphic
+transition maps. The key structure: multiplication by i rotates tangent vectors
+by exactly 90°. This is the *complex structure* J.
+
+The 90-Degree Complex Manifold was never metaphor. **Multiplication by i and
+folding a piece of paper are the same 90° geometry.**
+
+- **J(v) = i·v** rotates any tangent vector by 90° — this is the fold.
+- **Integrability (Nijenhuis = 0):** the 90° rotation must be globally
+  consistent around every closed loop. The crease is where this breaks down.
+- **Kähler vs. non-Kähler:** some crease patterns exist but can't carry a
+  compatible metric — a fold that's pure topology.
+- **Orientability:** the 90° rotation fixes a universal handedness.
+
+The cusp catastrophe V(x) = ¼x⁴ - ½ax² - bx is the local expression of the
+complex structure. The fold point (a, b) is where J stops being integrable.
+Crease density is the failure of the Nijenhuis tensor to vanish.
+
+---
+
 ## Walk Around Seeing Creases Everywhere
 
 That's the practice. The monkey who sees the crease sees the same geometry as the physicist who writes the equation. The paper doesn't care who folds it.

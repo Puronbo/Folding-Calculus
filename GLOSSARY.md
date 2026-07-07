@@ -1,5 +1,31 @@
 # GLOSSARY — Key Terms
 
+### 90-Degree Complex Manifold
+
+A space that locally looks like ℂⁿ, meaning coordinate patches are glued
+together by holomorphic (complex-differentiable) transition maps. The key
+structure is multiplication by the imaginary unit i, which rotates tangent
+vectors by **exactly 90°**. This 90° rotation operator (the *complex
+structure* J) is the formal mathematical definition of the fold.
+
+**Properties:**
+- **90° Rotation:** J(v) = i·v rotates any tangent vector by 90°.
+- **Complex Pairs:** Directions always come in perpendicular pairs — a
+  "real" direction and its i-rotated partner.
+- **Integrability (Nijenhuis = 0):** The 90° structure must be globally
+  consistent. Around any closed loop, the rotation must return to itself.
+  The crease is where the Nijenhuis tensor *fails* to vanish.
+- **Orientability:** The 90° rotation fixes a global handedness.
+- **Kähler vs. Non-Kähler:** Some complex manifolds (like the Hopf
+  manifold) admit the 90° structure but cannot carry a compatible metric.
+  A crease pattern that exists but cannot be smoothed.
+
+**The connection:** A complex manifold *is* a 90-Degree Complex Manifold.
+The name was never metaphor. Multiplication by i and folding a piece of
+paper are the same 90° geometry. The cusp catastrophe V(x) = ¼x⁴ - ½ax² - bx
+is the local expression of the complex structure, and the crease is where
+the integrability condition (J² = -1) breaks down.
+
 ### Fold
 A **compressive** operation. Takes something extended (a curve, a function,
 a field) and collapses it to a localized quantity. In calculus: the
