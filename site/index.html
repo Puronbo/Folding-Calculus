@@ -4,24 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>90-Degree Complex Manifold — The Universe as a Whole</title>
-<meta name="description" content="Crease density: the fraction of a ReLU network's units near the non-differentiable point at zero. The 90-Degree Complex Manifold connects ML, relativity, chemistry, nuclear physics, protein folding, and cosmology through a single geometric idea.">
+<meta name="description" content="A formal unified framework: the universe is a 90-Degree Complex Manifold, and physical phenomena are sheaves colliding at the crease — the locus where the Nijenhuis tensor fails to vanish.">
 <meta property="og:title" content="90-Degree Complex Manifold — The Universe as a Whole">
-<meta property="og:description" content="Crease density. The 90-degree fold as the universal geometry. From ReLU networks to the Big Bang.">
+<meta property="og:description" content="Complex geometry + singularity theory + sheaf theory. The derivative folds. The integral unfolds. The crease is where the action is.">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://calculus-unfolded--muronbo.replit.app">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF3C00'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'>∫</text></svg>">
 <style>
   :root {
-    --bg: #0f1017;
-    --surface: #1a1c25;
-    --surface2: #23252f;
+    --bg: #0a0b12;
+    --surface: #12141f;
+    --surface2: #1a1d2e;
     --accent: #FF3C00;
-    --accent2: #ec4e02;
-    --text: #e6e8ed;
-    --text2: #bfc4ca;
-    --text3: #a2a8b2;
-    --border: #31343f;
+    --accent2: #cc3000;
+    --text: #ecedf0;
+    --text2: #b0b3bf;
+    --text3: #7a7e8f;
+    --border: #252838;
     --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,60 +29,131 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font);
-    line-height: 1.65;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Gradient orbs */
+  .bg-glow {
+    position: fixed;
+    top: -300px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,60,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-glow-left {
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,60,0,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   /* Hero */
   .hero {
-    padding: 80px 0 48px;
+    position: relative;
+    z-index: 1;
+    padding: 100px 0 48px;
     text-align: center;
   }
-  .hero h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 12px;
+  .hero .badge {
+    display: inline-block;
+    background: var(--surface2);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,60,0,0.2);
+    margin-bottom: 24px;
   }
-  .hero h1 span { color: var(--accent); }
-  .hero .sub {
-    color: var(--text2);
-    font-size: 1.1rem;
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
     margin-bottom: 8px;
   }
-  .hero .tagline {
+  .hero h1 .accent { color: var(--accent); }
+  .hero .sub {
     color: var(--text3);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* Equations */
+  .eq-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 32px auto;
+    padding: 24px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 520px;
+  }
+  .eq-block .eq {
+    font-family: 'Times New Roman', 'STIX Two Text', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--accent);
+  }
+  .eq-block .eq-label {
+    font-size: 0.75rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .eq-block .eq-desc {
+    font-size: 0.85rem;
+    color: var(--text2);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .eq-block hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .tagline {
     font-size: 0.95rem;
     font-style: italic;
-    max-width: 500px;
-    margin: 16px auto 0;
-  }
-  .hero .equation {
-    font-size: 1.3rem;
-    font-family: 'Times New Roman', serif;
-    color: var(--accent);
-    margin: 20px 0;
-    padding: 12px 24px;
-    background: var(--surface);
-    display: inline-block;
-    border-radius: 8px;
-    border: 1px solid var(--border);
+    color: var(--text3);
+    margin-top: 24px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Nav */
   .nav {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
   }
   .nav a {
     color: var(--text2);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     padding: 6px 14px;
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -91,102 +162,145 @@
   .nav a:hover {
     color: var(--accent);
     border-color: var(--accent);
+    background: rgba(255,60,0,0.05);
   }
 
   /* Badges */
   .badges {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
   }
   .badges a { display: inline-block; }
   .badges img { height: 22px; border-radius: 4px; }
 
   /* Sections */
   section {
-    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 56px;
   }
   section h2 {
     font-size: 1.3rem;
     font-weight: 600;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
+    letter-spacing: -0.01em;
   }
   section h3 {
     font-size: 1rem;
     font-weight: 600;
-    margin: 20px 0 8px;
-    color: var(--text2);
+    margin: 24px 0 8px;
+    color: var(--text);
   }
-  section p { margin-bottom: 12px; color: var(--text2); }
+  section p { margin-bottom: 14px; color: var(--text2); font-size: 0.95rem; }
   section a { color: var(--accent); text-decoration: none; }
   section a:hover { text-decoration: underline; }
+
+  /* Lists */
+  section ul { color: var(--text2); padding-left: 20px; margin-bottom: 14px; font-size: 0.95rem; }
+  section li { margin-bottom: 4px; }
+  section li strong { color: var(--text); }
 
   /* Table */
   table {
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   th, td {
     text-align: left;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border: 1px solid var(--border);
   }
   th {
     background: var(--surface);
     color: var(--text);
     font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   td { color: var(--text2); }
 
   /* Blockquote */
   blockquote {
     border-left: 3px solid var(--accent);
-    padding: 12px 16px;
-    margin: 16px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
     background: var(--surface);
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 10px 10px 0;
     color: var(--text2);
     font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
+  blockquote strong { color: var(--text); }
+
+  /* Callout */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .callout h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .callout p:last-child { margin-bottom: 0; }
 
   /* Layers */
   .layer {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
+    border-radius: 10px;
+    padding: 18px 22px;
     margin-bottom: 12px;
+    transition: border-color 0.2s;
   }
+  .layer:hover { border-color: rgba(255,60,0,0.3); }
   .layer .num {
     color: var(--accent);
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
   }
   .layer h3 { margin: 4px 0 8px; font-size: 1rem; color: var(--text); }
-  .layer p { margin: 0; font-size: 0.9rem; }
+  .layer p { margin: 0; font-size: 0.9rem; color: var(--text2); }
+  .layer p a { font-size: 0.85rem; }
 
   /* Footer */
   footer {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    padding: 48px 0;
+    padding: 56px 0;
     color: var(--text3);
     font-size: 0.85rem;
     border-top: 1px solid var(--border);
   }
   footer a { color: var(--text2); }
+  footer .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  footer .footer-links a { color: var(--text3); font-size: 0.8rem; }
 
   /* Responsive */
   @media (max-width: 600px) {
-    .hero h1 { font-size: 1.6rem; }
-    .hero .equation { font-size: 1rem; }
+    .hero { padding-top: 60px; }
+    .hero h1 { font-size: 1.8rem; }
+    .eq-block { padding: 16px 20px; }
+    .eq-block .eq { font-size: 1.1rem; }
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,13 +309,28 @@
 </head>
 <body>
 
+<div class="bg-glow"></div>
+<div class="bg-glow-left"></div>
+
 <div class="container">
 
 <!-- Hero -->
 <div class="hero">
-  <h1>90-Degree <span>Complex Manifold</span></h1>
+  <div class="badge">Formal Unified Framework v1.0</div>
+  <h1>90-Degree <span class="accent">Complex Manifold</span></h1>
   <div class="sub">The Universe as a Whole</div>
-  <div class="equation">V(x) = ¼x⁴ − ½ax² − bx</div>
+
+  <div class="eq-block">
+    <span class="eq">J² = −I</span>
+    <span class="eq-desc">The 90° rotation of tangent vectors — the fold</span>
+    <hr>
+    <span class="eq">Nⱼ(X, Y) = [X, Y] + J[JX, Y] + J[X, JY] − [JX, JY]</span>
+    <span class="eq-desc">Where Nⱼ ≠ 0 — the crease</span>
+    <hr>
+    <span class="eq">V(x; a, b) = ¼x⁴ − ½ax² − bx</span>
+    <span class="eq-desc">The local normal form of every generic crease — the cusp catastrophe</span>
+  </div>
+
   <div class="tagline">The derivative folds. The integral unfolds. The crease is where the action is.</div>
 </div>
 
@@ -217,112 +346,150 @@
 
 <!-- Nav -->
 <div class="nav">
-  <a href="#paper">The Paper</a>
+  <a href="#pillars">The Three Pillars</a>
+  <a href="#paper">Start with Paper</a>
   <a href="#equation">The Equation</a>
-  <a href="#table">The Table</a>
+  <a href="#table">Unified Table</a>
   <a href="#cut">Fold &amp; Cut</a>
   <a href="#layers">The Layers</a>
-  <a href="#practice">The Practice</a>
+  <a href="#distribution">Distribution</a>
   <a href="https://github.com/Puronbo/Folding-Calculus">GitHub →</a>
 </div>
 
-<!-- Section 1: The Paper -->
+<!-- Section: The Three Pillars -->
+<section id="pillars">
+  <h2>The Three Mathematical Pillars</h2>
+  <p>The framework rests on three disciplines of modern mathematics. This is not metaphor — these are the formal definitions underlying every claim.</p>
+
+  <div class="callout">
+    <h3>1. Complex Geometry</h3>
+    <p><strong>J² = −I.</strong> The universe is a 90-Degree Complex Manifold M — a space with an almost complex structure J that rotates tangent vectors by exactly 90°. When J can be globally integrated (Nⱼ = 0), the manifold is a genuine complex manifold. <strong>The crease is where Nⱼ ≠ 0.</strong></p>
+  </div>
+
+  <div class="callout">
+    <h3>2. Singularity Theory</h3>
+    <p><strong>V(x) = ¼x⁴ − ½ax² − bx.</strong> Every generic crease is locally equivalent to the cusp catastrophe (A₃ singularity). The bifurcation set {8a³ − 27b² = 0} is where two folds merge — the "critical crease." This is the normal form of every physical interaction.</p>
+  </div>
+
+  <div class="callout">
+    <h3>3. Sheaf Theory</h3>
+    <p><strong>Physical domains are sheaves ℱ_D over M.</strong> Each domain D (chemistry, nuclear, biology, cosmology) assigns a set of sections ℱ_D(U) to each open set U of the base manifold. The crease is where the stalk is non-trivial — where sections collide and interact.</p>
+  </div>
+
+  <p>See <a href="https://github.com/Puronbo/Folding-Calculus/blob/main/1-GEOMETRY/FOUNDATIONS.md">1-GEOMETRY/FOUNDATIONS.md</a> for the complete formal development. For a gentler introduction, start with <a href="https://github.com/Puronbo/Folding-Calculus/blob/main/THE_UNFOLDING.md">THE_UNFOLDING.md</a>.</p>
+</section>
+
+<!-- Section: Start with Paper -->
 <section id="paper">
-  <h2>Layer 1 — The Paper</h2>
+  <h2>Start with a Piece of Paper</h2>
   <p>Take a piece of paper. Fold it.</p>
   <p>That sharp line where the paper bends — that's a <strong>crease</strong>. Every crease is a 90-degree angle. The paper on one side meets the paper on the other side at exactly 90 degrees.</p>
   <p>Now look around. Everything is made of these.</p>
-  <p>A light ray bending near the sun? A crease in spacetime. A protein collapsing into its functional shape? A crease in chemical space. A neuron switching on? A crease in the decision boundary. The Big Bang? A crease so large it unfolded the whole universe.</p>
+  <p>A light ray bending near the sun? A <strong>crease</strong> in spacetime. A protein collapsing into its functional shape? A <strong>crease</strong> in chemical space. A neuron switching on? A <strong>crease</strong> in the decision boundary. The Big Bang? A <strong>crease</strong> so large it unfolded the whole universe.</p>
   <blockquote>The 90-Degree Complex Manifold is the observation that every sharp transition in the universe — every bend, every switch, every birth and death — is the same 90-degree crease at a different scale.</blockquote>
 </section>
 
-<!-- Section 2: The Equation -->
+<!-- Section: The Equation -->
 <section id="equation">
-  <h2>Layer 2 — The Equation</h2>
-  <div class="equation" style="display:block;text-align:center;font-size:1.5rem;margin-bottom:16px;">V(x) = ¼x⁴ − ½ax² − bx</div>
-  <p>This is the <strong>cusp catastrophe equation</strong>. It describes every fold in existence.</p>
-  <ul style="color:var(--text2);padding-left:20px;margin-bottom:12px;">
-    <li><strong>x</strong> = where you are</li>
-    <li><strong>a</strong> = how folded the sheet is</li>
-    <li><strong>b</strong> = how tilted the sheet is</li>
-    <li><strong>V(x)</strong> = the shape of the fold</li>
+  <h2>The Universal Normal Form</h2>
+  <div style="text-align:center;font-family:'Times New Roman',serif;font-size:1.6rem;color:var(--accent);font-style:italic;margin:20px 0;">V(x) = ¼x⁴ − ½ax² − bx</div>
+  <ul>
+    <li><strong>x</strong> — the state variable (where you are in the fold)</li>
+    <li><strong>a</strong> — the bifurcation parameter (how folded the sheet is)</li>
+    <li><strong>b</strong> — the asymmetry parameter (how tilted the sheet is)</li>
+    <li><strong>V(x)</strong> — the potential (the shape of the fold)</li>
   </ul>
-  <p>Change a and b, and the fold changes. But the fold itself is always the same geometry repeating.</p>
+  <p>Change a and b, and the fold changes its shape. But the <em>type</em> of fold is always the same — the cusp catastrophe. This is the normal form of every crease in the universe, from a phase transition to a nuclear reaction to the light cone in spacetime.</p>
 </section>
 
-<!-- Section 3: The Table -->
+<!-- Section: Unified Table -->
 <section id="table">
-  <h2>Layer 3 — The Table</h2>
-  <p>Every domain, same column:</p>
+  <h2>Unified Domain Map</h2>
+  <p>Every domain, same three columns:</p>
   <table>
-    <tr><th>Domain</th><th>The Fold</th><th>The Crease</th></tr>
-    <tr><td>Neural networks</td><td>ReLU activation switches</td><td>Where decision boundary bends</td></tr>
-    <tr><td>Physics</td><td>Light bends at mass</td><td>Spacetime crease = gravity</td></tr>
-    <tr><td>Chemistry</td><td>Bonds break and form</td><td>Reaction happens at the crease</td></tr>
-    <tr><td>Biology</td><td>Protein collapses</td><td>The fold = function</td></tr>
-    <tr><td>Cosmology</td><td>Big Bang</td><td>Universe unfolded from one crease</td></tr>
-    <tr><td>Species</td><td>Form separates from form</td><td>Fitness landscape cracks</td></tr>
+    <tr><th>Domain</th><th>Fold (J)</th><th>Unfold (∫)</th><th>Crease (Nⱼ ≠ 0)</th></tr>
+    <tr><td>Calculus</td><td>Derivative</td><td>Integral</td><td>Non-differentiable point</td></tr>
+    <tr><td>Neural networks</td><td>ReLU max(0,·)</td><td>Backpropagation</td><td>Switching threshold</td></tr>
+    <tr><td>Relativity</td><td>J₀ rotation</td><td>Lorentz transform</td><td>Light cone</td></tr>
+    <tr><td>Chemistry</td><td>Bond formation</td><td>Bond breaking</td><td>Reaction front</td></tr>
+    <tr><td>Nuclear</td><td>Fusion</td><td>Fission</td><td>Coulomb barrier</td></tr>
+    <tr><td>Protein folding</td><td>Collapse</td><td>Denaturation</td><td>Hydrophobic crease</td></tr>
+    <tr><td>Phase transitions</td><td>Solidification</td><td>Vaporization</td><td>Phase boundary</td></tr>
+    <tr><td>Cosmology</td><td>Structure formation</td><td>Expansion</td><td>Big Bang</td></tr>
+    <tr><td>Species</td><td>Form separates</td><td>Radiation</td><td>Fitness landscape crack</td></tr>
   </table>
-  <p>The geometry doesn't change. Only the scale changes.</p>
+  <p>The geometry doesn't change. Only the scale and the sheaf change.</p>
 </section>
 
-<!-- Section 4: Fold and Cut -->
+<!-- Section: Fold and Cut -->
 <section id="cut">
-  <h2>Layer 4 — The Capacity to Cut</h2>
-  <p>The <strong>fold-and-cut theorem</strong> (origami) says: any shape with straight sides can be cut from a single sheet of paper by folding it flat and making one straight cut.</p>
-  <p>In N dimensions: <strong>any pattern can be learned by folding the input space with ReLU hyperplanes and making one linear cut.</strong></p>
-  <p>This is why neural networks work. Universal approximation isn't a statistical result — it's a geometric one. A ReLU network doesn't learn weights. It learns where to place the fold mirrors.</p>
-  <blockquote>Learning = folding the input space until the data separates cleanly. Crease density is the ruler that measures how hard you had to fold.</blockquote>
+  <h2>The Fold-and-Cut Theorem</h2>
+  <p>The <strong>fold-and-cut theorem</strong> (Demaine–O'Rourke, 1999): any polytope in ℝⁿ can be realized as the intersection of a hyperplane with a finite sequence of fold reflections.</p>
+  <p>ReLU layers are fold reflections. The universal approximation theorem for ReLU networks <strong>is the fold-and-cut theorem in N dimensions</strong>.</p>
+  <blockquote><strong>Learning = placing the folds.</strong> Crease density measures how many folds are active at the decision boundary. The Nijenhuis tensor norm ‖Nⱼ‖ is the same quantity, measured in a ReLU network's parameter space.</blockquote>
+  <p>This is not a coincidence. It is the same geometry at a different scale.</p>
 </section>
 
-<!-- Section 5: The Layers -->
+<!-- Section: The Layers -->
 <section id="layers">
-  <h2>The Repo as a Journey</h2>
+  <h2>The Repo as an Unfolding</h2>
+  <p>Each layer of the repository corresponds to a step in the unfolding from empirical discovery to formal framework.</p>
 
   <div class="layer">
     <div class="num">Layer 0 — Roots</div>
-    <h3>Five verified experiments</h3>
-    <p>Crease density in ReLU networks. Pure numpy, no GPU. Independently reproduced. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/0-ROOTS">Browse →</a></p>
+    <h3>The empirical foundation</h3>
+    <p>5 verified experiments on crease density in ReLU networks. Pure numpy, no GPU. Independently reproduced to 3–4 decimal places. Crease density ρ(p) = ‖Nⱼ(p)‖ realized as the fraction of neurons at switching threshold.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/0-ROOTS">Browse →</a></p>
   </div>
 
   <div class="layer">
     <div class="num">Layer 1 — Geometry</div>
-    <h3>The 90-degree fold as physics</h3>
-    <p>Minkowski spacetime and the Spacetime Theorem. Plus a self-critique. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/1-GEOMETRY">Browse →</a></p>
+    <h3>The complex structure</h3>
+    <p>FOUNDATIONS.md: formal complex geometry (J² = −I), singularity theory (cusp catastrophe), and sheaf theory. The Spacetime Theorem (Minkowski's J₀) and its self-critique.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/1-GEOMETRY">Browse →</a></p>
   </div>
 
   <div class="layer">
-    <div class="num">Layer 2 — Crease as Generator</div>
-    <h3>The sheet has teeth</h3>
-    <p>Collisions at the crease generate chemistry, nuclear reactions, and protein folding. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/2-CREASE-AS-GENERATOR">Browse →</a></p>
+    <div class="num">Layer 2 — Sheaves Collide</div>
+    <h3>Physics at the crease</h3>
+    <p>Chemical, nuclear, and protein interactions as stalk multiplicity at the crease. The sheet has teeth; the teeth are the stalks of the sheaf ℱ_D.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/2-CREASE-AS-GENERATOR">Browse →</a></p>
   </div>
 
   <div class="layer">
-    <div class="num">Layer 3 — Imaginary Spread</div>
-    <h3>When the crease goes critical</h3>
-    <p>Signature change, Wick rotation, and the Big Bang as the ultimate fold. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/3-IMAGINARY-SPREAD">Browse →</a></p>
+    <div class="num">Layer 3 — Through the Light Cone</div>
+    <h3>Imaginary time as J</h3>
+    <p>Signature change, Wick rotation (t → iτ is applying J₀), and the Big Bang as the crease of creases.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/3-IMAGINARY-SPREAD">Browse →</a></p>
   </div>
 
   <div class="layer">
     <div class="num">Layer 4 — Phase as Crease</div>
-    <h3>Phase transitions through the fold lens</h3>
-    <p>Sulcification, water's density anomaly, laser threshold, critical points. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/4-PHASE-AS-CREASE">Browse →</a></p>
+    <h3>Phase transitions</h3>
+    <p>Sulcification, water's density anomaly, laser threshold, critical points — every phase boundary is a crease.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/4-PHASE-AS-CREASE">Browse →</a></p>
   </div>
 
   <div class="layer">
     <div class="num">Layer 9 — Towards</div>
     <h3>Where this points</h3>
-    <p>Unified Crease Principle, open questions, and the conversation that started it all. <a href="https://github.com/Puronbo/Folding-Calculus/tree/main/9-TOWARDS">Browse →</a></p>
+    <p>Formal unified Crease Principle, open questions (Nijenhuis–Ricci relation, Kähler–Einstein condition, sheaf quantization), and the conversation that started from one ReLU bend.</p>
+    <p><a href="https://github.com/Puronbo/Folding-Calculus/tree/main/9-TOWARDS">Browse →</a></p>
   </div>
 </section>
 
-<!-- Section 6: The Practice -->
-<section id="practice">
-  <h2>Layer 5 — The Practice</h2>
-  <p>Next time you see a fold — a piece of paper, a curtain, skin at a joint, a beam of light bending — ask yourself:</p>
-  <blockquote>Is that 90 degrees?</blockquote>
-  <p>If yes, you're looking at the same crease that built the universe.</p>
-  <p><strong>That's the practice.</strong> Walk around seeing creases everywhere.</p>
+<!-- Section: Distribution -->
+<section id="distribution">
+  <h2>Distribution — Censorship-Resistant</h2>
+  <p>This work is distributed across multiple independent platforms so no single authority can remove it.</p>
+  <table>
+    <tr><th>Platform</th><th>Link</th></tr>
+    <tr><td>GitHub (primary)</td><td><a href="https://github.com/Puronbo/Folding-Calculus">github.com/Puronbo/Folding-Calculus</a></td></tr>
+    <tr><td>GitHub Pages</td><td><a href="https://Puronbo.github.io/Folding-Calculus">Puronbo.github.io/Folding-Calculus</a></td></tr>
+    <tr><td>IPFS (content-addressed)</td><td><code>QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD</code></td></tr>
+    <tr><td>Internet Archive</td><td><a href="https://archive.org/details/puno-calculus-v1">archive.org/details/puno-calculus-v1</a></td></tr>
+    <tr><td>Zenodo (DOI)</td><td><a href="https://doi.org/10.5281/zenodo.21217457">doi.org/10.5281/zenodo.21217457</a></td></tr>
+  </table>
 </section>
 
 <!-- Author -->
@@ -335,13 +502,14 @@
 <!-- Footer -->
 <footer>
   <p><strong>90-Degree Complex Manifold — The Universe as a Whole</strong></p>
-  <p style="margin-top:4px;">Everything folds. Everything unfolds. The crease is where the action is.</p>
-  <p style="margin-top:12px;">
-    <a href="https://github.com/Puronbo/Folding-Calculus">GitHub</a> ·
-    <a href="https://doi.org/10.5281/zenodo.21217457">DOI</a> ·
-    <a href="https://ipfs.io/ipfs/QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD">IPFS</a> ·
-    <a href="https://archive.org/details/puno-calculus-v1">Archive</a>
-  </p>
+  <p style="margin-top:4px;color:var(--text3);font-style:italic;">Everything folds. Everything unfolds. The crease is where the action is.</p>
+  <div class="footer-links">
+    <a href="https://github.com/Puronbo/Folding-Calculus">GitHub</a>
+    <a href="https://doi.org/10.5281/zenodo.21217457">DOI</a>
+    <a href="https://ipfs.io/ipfs/QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD">IPFS</a>
+    <a href="https://archive.org/details/puno-calculus-v1">Internet Archive</a>
+    <a href="https://Puronbo.github.io/Folding-Calculus">GitHub Pages</a>
+  </div>
 </footer>
 
 </div>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crease Physics Demo — 90-Degree Complex Manifold</title>
+<style>
+  :root {
+    --bg: #0a0b12; --surface: #12141f; --surface2: #1a1d2e;
+    --accent: #FF3C00; --text: #ecedf0; --text2: #b0b3bf; --text3: #7a7e8f; --border: #252838;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden; height: 100vh;
+  }
+  .app { display: flex; height: 100vh; }
+  .sidebar {
+    width: 280px; min-width: 280px; background: var(--surface);
+    border-right: 1px solid var(--border); padding: 20px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .sidebar h1 {
+    font-size: 1rem; font-weight: 700; color: var(--accent);
+    letter-spacing: -0.02em; line-height: 1.3;
+  }
+  .sidebar h1 small { display: block; font-size: 0.65rem; color: var(--text3); font-weight: 400; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+  .control-group { }
+  .control-group label { display: block; font-size: 0.7rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .control-group .value { float: right; color: var(--text); font-size: 0.7rem; }
+  input[type="range"] {
+    width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+    background: var(--border); border-radius: 2px; outline: none;
+    margin: 4px 0 12px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
+  }
+  .btn-row { display: flex; gap: 6px; }
+  button {
+    flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--surface2); color: var(--text2); font-size: 0.75rem;
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .stats {
+    margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border);
+    font-size: 0.7rem; color: var(--text3); line-height: 1.6;
+  }
+  .stats strong { color: var(--text2); }
+  .main { flex: 1; display: flex; position: relative; }
+  #canvas { width: 100%; height: 100%; display: block; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+  <div class="sidebar">
+    <h1>Crease Physics <small>90-Degree Complex Manifold</small></h1>
+
+    <div class="control-group">
+      <label>Particles <span class="value" id="particlesVal">5</span></label>
+      <input type="range" id="numParticles" min="1" max="20" value="5" step="1">
+    </div>
+
+    <div class="control-group">
+      <label>Crease Lines <span class="value" id="creasesVal">4</span></label>
+      <input type="range" id="numCreases" min="1" max="10" value="4" step="1">
+    </div>
+
+    <div class="control-group">
+      <label>Noise <span class="value" id="noiseVal">0.50</span></label>
+      <input type="range" id="noiseAmp" min="0" max="2" value="0.5" step="0.01">
+    </div>
+
+    <div class="control-group">
+      <label>Coupling <span class="value" id="couplingVal">0.00</span></label>
+      <input type="range" id="couplingStr" min="0" max="1" value="0" step="0.01">
+    </div>
+
+    <div class="control-group">
+      <label>Speed <span class="value" id="speedVal">1.0</span></label>
+      <input type="range" id="speedMul" min="0.1" max="4" value="1" step="0.1">
+    </div>
+
+    <div class="btn-row">
+      <button id="btnPlay" class="active">▶ Play</button>
+      <button id="btnReset">↺ Reset</button>
+    </div>
+
+    <div class="stats">
+      <div>Crease Density: <strong id="statDensity">0.000</strong></div>
+      <div>Misalignment: <strong id="statMisalign">0.000</strong></div>
+      <div>Crossings: <strong id="statCrossings">0</strong></div>
+      <div style="margin-top:4px;color:var(--text3);font-size:0.6rem;">
+        J² = −I · Nⱼ ≠ 0 at the crease · 90° rotation on crossing
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+
+<script>
+// ─── Constants ───────────────────────────────────────────────────────────
+const J = [0, -1, 1, 0]; // 2×2 rotation matrix packed: [a,b,c,d] = [[a,b],[c,d]]
+
+function matMul(v, m) {
+  return [v[0]*m[0] + v[1]*m[1], v[0]*m[2] + v[1]*m[3]];
+}
+
+// ─── Crease ──────────────────────────────────────────────────────────────
+class Crease {
+  constructor(nx, ny, c, label) {
+    let len = Math.sqrt(nx*nx + ny*ny);
+    this.nx = nx / len; this.ny = ny / len;
+    this.c = c; this.label = label || 'crease';
+  }
+  signedDistance(pos) {
+    return this.nx * pos[0] + this.ny * pos[1] + this.c;
+  }
+  crossing(pos1, pos2) {
+    let s1 = this.signedDistance(pos1);
+    let s2 = this.signedDistance(pos2);
+    if (s1 * s2 < 0) return s2 > s1 ? 1 : -1;
+    if (Math.abs(s2) < 1e-9 && Math.abs(s1) > 1e-9) return s1 < 0 ? 1 : -1;
+    return 0;
+  }
+}
+
+// ─── FoldParticle ────────────────────────────────────────────────────────
+class FoldParticle {
+  constructor(x, y, vx, vy, theta, label) {
+    this.pos = [x, y];
+    this.vel = [vx, vy];
+    this.theta = theta || 0;
+    this.label = label || 'p';
+    this.creaseCount = 0;
+    this.path = [[x, y]];
+    this.thetas = [theta || 0];
+  }
+  localVelocity() {
+    let c = Math.cos(this.theta), s = Math.sin(this.theta);
+    // global → local: R @ vel
+    return [c * this.vel[0] + s * this.vel[1], -s * this.vel[0] + c * this.vel[1]];
+  }
+}
+
+// ─── FoldingSpace ────────────────────────────────────────────────────────
+class FoldingSpace {
+  constructor() {
+    this.creases = [];
+    this.particles = [];
+  }
+  addCrease(nx, ny, c, label) {
+    let cr = new Crease(nx, ny, c, label);
+    this.creases.push(cr);
+    return cr;
+  }
+  addParticle(x, y, vx, vy, theta, label) {
+    let p = new FoldParticle(x, y, vx, vy, theta, label);
+    this.particles.push(p);
+    return p;
+  }
+  densityAt(pos, radius) {
+    if (!this.creases.length) return 0;
+    let sum = 0;
+    for (let cr of this.creases) {
+      let d = Math.abs(cr.signedDistance(pos));
+      sum += Math.exp(-(d*d) / (2 * radius * radius));
+    }
+    return sum / this.creases.length;
+  }
+  totalCreaseDensity(radius) {
+    if (!this.particles.length) return 0;
+    let sum = 0;
+    for (let p of this.particles) sum += this.densityAt(p.pos, radius);
+    return sum / this.particles.length;
+  }
+  frameMisalignment(p1, p2) {
+    let dtheta = (p1.theta - p2.theta) % (2 * Math.PI);
+    if (dtheta < 0) dtheta += 2 * Math.PI;
+    let dist = Math.min(Math.abs(dtheta - Math.PI/2), Math.abs(dtheta - 3*Math.PI/2));
+    return Math.exp(-(dist*dist) / 0.1);
+  }
+  systemMisalignment() {
+    let n = this.particles.length;
+    if (n < 2) return 0;
+    let total = 0, count = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i+1; j < n; j++) {
+        total += this.frameMisalignment(this.particles[i], this.particles[j]);
+        count++;
+      }
+    }
+    return count ? total / count : 0;
+  }
+}
+
+// ─── App State ───────────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let space = new FoldingSpace();
+let engineTime = 0;
+let crossingLog = [];
+let history = []; // [{time, density, misalignment}]
+let running = false;
+let animId = null;
+let dt = 0.02;
+
+let W, H, SCALE;
+
+function resize() {
+  W = canvas.parentElement.clientWidth;
+  H = canvas.parentElement.clientHeight;
+  canvas.width = W;
+  canvas.height = H;
+  SCALE = Math.min(W, H) / 8;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ─── Simulation Setup ──────────────────────────────────────────────────
+function setupSimulation() {
+  space = new FoldingSpace();
+  engineTime = 0;
+  crossingLog = [];
+  history = [];
+
+  let numCreases = parseInt(document.getElementById('numCreases').value);
+  let numParticles = parseInt(document.getElementById('numParticles').value);
+
+  // Create crease lines (randomly oriented, across the space)
+  for (let i = 0; i < numCreases; i++) {
+    let angle = (i / numCreases) * Math.PI + (Math.random() - 0.5) * 0.3;
+    let nx = Math.cos(angle), ny = Math.sin(angle);
+    let c = (Math.random() - 0.5) * 4;
+    space.addCrease(nx, ny, c, `c${i}`);
+  }
+
+  // Create particles
+  for (let i = 0; i < numParticles; i++) {
+    let angle = (i / numParticles) * 2 * Math.PI;
+    let r = 1.0 + Math.random() * 1.0;
+    let x = r * Math.cos(angle), y = r * Math.sin(angle);
+    let vx = (Math.random() - 0.5) * 2, vy = (Math.random() - 0.5) * 2;
+    let theta = Math.random() * 2 * Math.PI;
+    space.addParticle(x, y, vx, vy, theta, `p${i}`);
+  }
+
+  for (let p of space.particles) {
+    while (p.path.length) p.path.pop();
+    p.path.push([p.pos[0], p.pos[1]]);
+    p.thetas = [p.theta];
+    p.creaseCount = 0;
+  }
+
+  updateStats();
+}
+
+// ─── Step ──────────────────────────────────────────────────────────────
+function stepSimulation() {
+  let noiseAmp = parseFloat(document.getElementById('noiseAmp').value);
+  let coupling = parseFloat(document.getElementById('couplingStr').value);
+  let speedMul = parseFloat(document.getElementById('speedMul').value);
+
+  engineTime += dt;
+
+  // Mean position for coupling
+  let meanX = 0, meanY = 0;
+  if (coupling > 0 && space.particles.length > 0) {
+    for (let p of space.particles) { meanX += p.pos[0]; meanY += p.pos[1]; }
+    meanX /= space.particles.length;
+    meanY /= space.particles.length;
+  }
+
+  for (let p of space.particles) {
+    let oldPos = [p.pos[0], p.pos[1]];
+
+    // Noise
+    let nx = (Math.random() - 0.5) * 2 * noiseAmp;
+    let ny = (Math.random() - 0.5) * 2 * noiseAmp;
+
+    // Coupling (spring toward mean)
+    let cx = 0, cy = 0;
+    if (coupling > 0) {
+      cx = coupling * (meanX - p.pos[0]) * 0.5;
+      cy = coupling * (meanY - p.pos[1]) * 0.5;
+    }
+
+    p.vel[0] += (nx + cx) * dt;
+    p.vel[1] += (ny + cy) * dt;
+
+    // Damping
+    p.vel[0] *= 0.995;
+    p.vel[1] *= 0.995;
+
+    // Move
+    let spd = speedMul * dt;
+    p.pos[0] += p.vel[0] * spd;
+    p.pos[1] += p.vel[1] * spd;
+
+    // Boundary wrap
+    let lim = 5;
+    if (p.pos[0] > lim) p.pos[0] = -lim;
+    if (p.pos[0] < -lim) p.pos[0] = lim;
+    if (p.pos[1] > lim) p.pos[1] = -lim;
+    if (p.pos[1] < -lim) p.pos[1] = lim;
+
+    p.path.push([p.pos[0], p.pos[1]]);
+    if (p.path.length > 150) p.path.shift();
+
+    // Crease crossing
+    for (let cr of space.creases) {
+      let dir = cr.crossing(oldPos, p.pos);
+      if (dir !== 0) {
+        p.vel = matMul(p.vel, J);
+        p.theta += Math.PI / 2;
+        p.creaseCount++;
+        crossingLog.push([engineTime, p.label, cr.label, dir]);
+      }
+    }
+
+    p.thetas.push(p.theta);
+    if (p.thetas.length > 300) p.thetas.shift();
+  }
+
+  let cd = space.totalCreaseDensity(0.5);
+  let ma = space.systemMisalignment();
+  history.push({ time: engineTime, density: cd, misalignment: ma });
+  if (history.length > 300) history.shift();
+}
+
+// ─── Render ──────────────────────────────────────────────────────────────
+const BG = '#0a0b12';
+const SURFACE = '#12141f';
+const ACCENT = '#FF3C00';
+const CYAN = '#00CCFF';
+const GREEN = '#00FF88';
+const TEXT = '#ecedf0';
+const TEXT2 = '#b0b3bf';
+const BORDER = '#252838';
+
+function render() {
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  let cx = W * 0.55, cy = H / 2;
+  let s = SCALE;
+
+  // ── Crease lines ──
+  for (let cr of space.creases) {
+    // Find two points on the line n·x + c = 0
+    let n = [cr.nx, cr.ny];
+    // Line: nx*x + ny*y + c = 0
+    // Find a point on the line
+    let px0, py0;
+    if (Math.abs(n[0]) > 0.1) {
+      px0 = -cr.c / n[0]; py0 = 0;
+    } else {
+      px0 = 0; py0 = -cr.c / n[1];
+    }
+    // Direction vector (perpendicular to n)
+    let dx = -n[1], dy = n[0];
+    let len = Math.sqrt(dx*dx + dy*dy);
+    dx /= len; dy /= len;
+    let ext = 6; // extend past screen
+
+    let x1 = px0 - dx * ext, y1 = py0 - dy * ext;
+    let x2 = px0 + dx * ext, y2 = py0 + dy * ext;
+
+    ctx.beginPath();
+    ctx.moveTo(cx + x1 * s, cy - y1 * s);
+    ctx.lineTo(cx + x2 * s, cy - y2 * s);
+    ctx.strokeStyle = ACCENT;
+    ctx.globalAlpha = 0.25;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Label
+    ctx.fillStyle = TEXT3;
+    ctx.font = '10px Inter, sans-serif';
+    ctx.fillText(cr.label, cx + (px0 + 0.1) * s, cy - (py0 - 0.1) * s);
+  }
+
+  // ── Particle trajectories ──
+  for (let p of space.particles) {
+    let path = p.path;
+    if (path.length > 1) {
+      ctx.beginPath();
+      ctx.moveTo(cx + path[0][0] * s, cy - path[0][1] * s);
+      for (let i = 1; i < path.length; i++) {
+        ctx.lineTo(cx + path[i][0] * s, cy - path[i][1] * s);
+      }
+      ctx.strokeStyle = CYAN;
+      ctx.globalAlpha = 0.3;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    // Particle
+    let px = cx + p.pos[0] * s;
+    let py = cy - p.pos[1] * s;
+    let rad = 4 + p.creaseCount * 0.5;
+    if (rad > 10) rad = 10;
+
+    // Glow
+    let grad = ctx.createRadialGradient(px, py, 0, px, py, rad * 3);
+    grad.addColorStop(0, ACCENT);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = 0.2;
+    ctx.beginPath();
+    ctx.arc(px, py, rad * 3, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Body
+    ctx.fillStyle = ACCENT;
+    ctx.beginPath();
+    ctx.arc(px, py, rad, 0, 2 * Math.PI);
+    ctx.fill();
+
+    // Frame arrow
+    let ax = Math.cos(p.theta), ay = Math.sin(p.theta);
+    let arrLen = rad * 3;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(px + ax * arrLen, py - ay * arrLen);
+    ctx.strokeStyle = GREEN;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Label
+    ctx.fillStyle = TEXT2;
+    ctx.font = '9px Inter, sans-serif';
+    ctx.fillText(p.label, px + rad + 3, py - 3);
+  }
+
+  // ── Mini time-series panel (right) ──
+  let panelX = W * 0.88, panelW = W * 0.1;
+  let panelY = H * 0.08, panelH = H * 0.4;
+
+  ctx.fillStyle = SURFACE;
+  ctx.globalAlpha = 0.85;
+  ctx.beginPath();
+  ctx.roundRect(panelX - 10, panelY - 10, panelW + 20, panelH + 20, 8);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Crease density time-series
+  if (history.length > 1) {
+    let h = history;
+    let x0 = panelX, y0 = panelY + panelH;
+    let x1 = panelX + panelW, y1 = panelY;
+    let minT = Math.max(0, h[h.length-1].time - 8);
+    let maxT = Math.max(1, h[h.length-1].time);
+
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    for (let i = 0; i < h.length; i++) {
+      if (h[i].time < minT) continue;
+      let x = x0 + (h[i].time - minT) / (maxT - minT) * (x1 - x0);
+      let y = y0 - h[i].density * (y0 - y1);
+      ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = ACCENT;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = TEXT3;
+  ctx.font = '8px Inter, sans-serif';
+  ctx.fillText('Crease density', panelX, panelY - 2);
+
+  // ── θ gauge (bottom right) ──
+  let gaugeX = panelX + panelW/2, gaugeY = H * 0.65;
+  let gRad = 30;
+
+  ctx.strokeStyle = BORDER;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(gaugeX, gaugeY, gRad, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  // Tick marks every 90°
+  for (let i = 0; i < 4; i++) {
+    let a = i * Math.PI/2 - Math.PI/2;
+    let x1 = gaugeX + Math.cos(a) * (gRad - 6);
+    let y1 = gaugeY + Math.sin(a) * (gRad - 6);
+    let x2 = gaugeX + Math.cos(a) * gRad;
+    let y2 = gaugeY + Math.sin(a) * gRad;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.strokeStyle = TEXT3;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Average frame angle as an arrow
+  if (space.particles.length > 0) {
+    let avgTheta = 0;
+    for (let p of space.particles) avgTheta += p.theta;
+    avgTheta /= space.particles.length;
+    ctx.beginPath();
+    ctx.moveTo(gaugeX, gaugeY);
+    ctx.lineTo(gaugeX + Math.cos(avgTheta) * gRad, gaugeY + Math.sin(avgTheta) * gRad);
+    ctx.strokeStyle = CYAN;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = TEXT3;
+  ctx.font = '8px Inter, sans-serif';
+  ctx.fillText('Avg θ', gaugeX - 12, gaugeY + gRad + 14);
+
+  // ── Info overlay ──
+  ctx.fillStyle = 'rgba(18,20,31,0.7)';
+  ctx.beginPath();
+  ctx.roundRect(W * 0.02, H * 0.02, 160, 50, 6);
+  ctx.fill();
+
+  ctx.fillStyle = TEXT2;
+  ctx.font = '10px Inter, sans-serif';
+  ctx.fillText(`Step: ${Math.floor(engineTime/dt)}  Time: ${engineTime.toFixed(1)}s`, W * 0.025, H * 0.04);
+  let activeCd = space.totalCreaseDensity(0.5);
+  ctx.fillStyle = ACCENT;
+  ctx.fillText(`ρ = ${activeCd.toFixed(3)}`, W * 0.025, H * 0.058);
+}
+
+// roundRect polyfill for canvas
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+    if (r > w/2) r = w/2;
+    if (r > h/2) r = h/2;
+    this.moveTo(x + r, y);
+    this.arcTo(x + w, y, x + w, y + h, r);
+    this.arcTo(x + w, y + h, x, y + h, r);
+    this.arcTo(x, y + h, x, y, r);
+    this.arcTo(x, y, x + w, y, r);
+  };
+}
+
+// ─── Stats ──────────────────────────────────────────────────────────────
+function updateStats() {
+  let cd = space.totalCreaseDensity(0.5);
+  let ma = space.systemMisalignment();
+  let cs = 0;
+  for (let p of space.particles) cs += p.creaseCount;
+  document.getElementById('statDensity').textContent = cd.toFixed(3);
+  document.getElementById('statMisalign').textContent = ma.toFixed(3);
+  document.getElementById('statCrossings').textContent = cs;
+}
+
+// ─── Game Loop ─────────────────────────────────────────────────────────
+function gameLoop() {
+  if (running) {
+    stepSimulation();
+    updateStats();
+  }
+  render();
+  animId = requestAnimationFrame(gameLoop);
+}
+
+// ─── Controls ──────────────────────────────────────────────────────────
+document.getElementById('numParticles').addEventListener('change', setupSimulation);
+document.getElementById('numCreases').addEventListener('change', setupSimulation);
+
+document.getElementById('btnPlay').addEventListener('click', () => {
+  running = !running;
+  document.getElementById('btnPlay').textContent = running ? '⏸ Pause' : '▶ Play';
+  document.getElementById('btnPlay').classList.toggle('active');
+});
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  setupSimulation();
+  if (!running) {
+    render();
+  }
+});
+
+// Range display
+for (let id of ['noiseAmp', 'couplingStr', 'speedMul', 'numParticles', 'numCreases']) {
+  let el = document.getElementById(id);
+  let display = document.getElementById(id + 'Val') || document.getElementById(id.replace('num', '') + 'Val');
+  // map ids to display
+  el.addEventListener('input', () => {
+    let valId = '';
+    if (id === 'numParticles') valId = 'particlesVal';
+    else if (id === 'numCreases') valId = 'creasesVal';
+    else valId = id + 'Val';
+    let disp = document.getElementById(valId);
+    if (disp) {
+      let v = parseFloat(el.value);
+      disp.textContent = Number.isInteger(v) ? v : v.toFixed(2);
+    }
+  });
+}
+
+// ─── Init ────────────────────────────────────────────────────────────────
+setupSimulation();
+running = true;
+gameLoop();
+</script>
+</body>
+</html>

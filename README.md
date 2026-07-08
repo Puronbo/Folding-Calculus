@@ -48,60 +48,48 @@ where the Nijenhuis tensor fails to vanish.
 
 | Layer | Content |
 |-------|---------|
-| [`0-ROOTS/`](0-ROOTS/) | **Empirical foundation.** 5 verified experiments on crease density in ReLU networks, with reproducible code and the full monograph. Crease density ρ(p) = ‖Nⱼ(p)‖ realized as fraction of neurons at switching threshold. |
-| [`1-GEOMETRY/`](1-GEOMETRY/) | **Complex structure.** The 90° fold as Minkowski orthogonality (J₀), the formal FOUNDATIONS.md (complex geometry + singularity theory + sheaf theory), the original Spacetime Theorem, and its self-critique. |
-| [`2-CREASE-AS-GENERATOR/`](2-CREASE-AS-GENERATOR/) | **Sheaves collide.** Chemical, nuclear, and protein interactions as stalk multiplicity at the crease. |
-| [`3-IMAGINARY-SPREAD/`](3-IMAGINARY-SPREAD/) | **Through the light cone.** Signature change, Wick rotation as J, Big Bang as the crease of creases. |
-| [`4-PHASE-AS-CREASE/`](4-PHASE-AS-CREASE/) | **Phase boundaries.** Sulcification, water anomalies, laser threshold — every phase transition is a crease. |
-| [`9-TOWARDS/`](9-TOWARDS/) | **Open-ended.** Unified Crease Principle, open questions, roadmap, and the conversation that started from one ReLU bend. |
+| [`0-ROOTS/`](0-ROOTS/) | **Empirical foundation.** 5 verified experiments on crease density in ReLU networks. |
+| [`1-GEOMETRY/`](1-GEOMETRY/) | **Complex structure.** Formal FOUNDATIONS.md, Spacetime Theorem, and its self-critique. |
+| [`2-CREASE-AS-GENERATOR/`](2-CREASE-AS-GENERATOR/) | **Sheaves collide.** Chemical, nuclear, protein interactions as stalk multiplicity at the crease. |
+| [`3-IMAGINARY-SPREAD/`](3-IMAGINARY-SPREAD/) | **Through the light cone.** Wick rotation as J, Big Bang as the crease of creases. |
+| [`4-PHASE-AS-CREASE/`](4-PHASE-AS-CREASE/) | **Phase boundaries.** Every phase transition is a crease. |
+| [`5-ENGINE/`](5-ENGINE/) | **Folding physics engine.** Continuous crease dynamics simulations, 10 videos, 5+ experiments. |
+| [`7-EVERYWHERE/`](7-EVERYWHERE/) | **Creases everywhere.** Cross-domain evidence: biology, economics, social systems, music, information theory, cognition, language, computation. |
+| [`8-PAPERS/`](8-PAPERS/) | **Publications.** Structured preprint, formal proof sketch, abstract. |
+| [`9-TOWARDS/`](9-TOWARDS/) | **Open-ended.** Unified Crease Principle, open questions, roadmap. |
+| [`site/`](site/) | **Static website.** Interactive crease physics demo + landing page. |
+| [`book/`](book/) | **The book.** Full monograph + cover PDF. |
 
 ## Verified Results
 
-All five experiments in Layer 0 were independently re-run from scratch,
-using the exact code in `0-ROOTS/src/` and its built-in random seeds.
-The reported numbers reproduced — in most cases to three or four decimal
-places. See [`0-ROOTS/results/verified_results.md`](0-ROOTS/results/verified_results.md)
-for the full comparison.
+All five experiments in Layer 0 were independently re-run from scratch.
+The folding engine (Layer 5) provides a separate, continuous verification:
+crease density traces the cusp bifurcation set, hysteresis scales predictably,
+particles self-organize at crease lines ($r = 0.556$). See
+[`5-ENGINE/FINDINGS.md`](5-ENGINE/FINDINGS.md).
 
-**Rigorous finding:** Crease density — a measurable quantity in ReLU
-networks — is the experimental shadow of the Nijenhuis tensor norm.
-The 90° fold of a ReLU neuron (max(0, x)) is the simplest example of
-J² = −I in computation.
+**Crease density** — measurable in ReLU networks AND in continuous
+dynamical systems — is the experimental shadow of the Nijenhuis tensor norm.
 
-## The Fold-and-Cut Insight
-
-The **fold-and-cut theorem** (Demaine–O'Rourke): any polytope in ℝⁿ can
-be realized as the intersection of a hyperplane with a finite sequence of
-fold reflections. ReLU layers are fold reflections. **Universal
-approximation = fold-and-cut in N dimensions.** Learning = placing the
-folds. The crease density measures how many folds are active at the
-decision boundary.
-
-## Usage
+## Quick Start
 
 ```bash
+# ReLU experiments (Layer 0):
 pip install -r 0-ROOTS/requirements.txt
+python 0-ROOTS/src/exp2_crease_density.py
 
-# Reproduce the 5 experiments:
-python 0-ROOTS/src/exp2_crease_density.py   # ρ(p) vs boundary complexity (r = +0.97)
-python 0-ROOTS/src/exp3_early_stop.py        # crease stabilization precedes convergence
-python 0-ROOTS/src/exp_pruning.py            # prune by crease proximity (better than L1)
-python 0-ROOTS/src/demo_ood.py               # OOD detection via crease anomaly (AUROC 0.884)
-python 0-ROOTS/src/exp1b_crease_subgradient.py  # subgradient strategy at the crease
+# Folding engine (Layer 5):
+python 5-ENGINE/tests.py
+python 5-ENGINE/experiments.py
+python 5-ENGINE/produce_videos.py --all
 ```
 
-## Scope — Only Layer 0 is Verified
+## Scope — Verified vs. Speculative
 
-Only `0-ROOTS/` contains independently verified experimental results.
-All other layers are theoretical — built on established mathematics
-(complex geometry, singularity theory, sheaf theory) and established
-science (relativity, thermodynamics, nuclear physics) but not themselves
-experimentally validated. Every document clearly marks verified vs.
-speculative claims.
-
-The formal mathematics in `1-GEOMETRY/FOUNDATIONS.md` is standard —
-it is not speculative. What is speculative is the claim that these tools
-provide the correct *unified description* across all physical domains.
+- **0-ROOTS/** — independently verified ReLU experiments
+- **5-ENGINE/** — independently verified continuous simulation results
+- **1-GEOMETRY/** — standard formal mathematics (not speculative)
+- **All other layers** — theoretical extensions; every document marks claims clearly
 
 ## Distribution
 
