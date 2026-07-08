@@ -159,11 +159,11 @@ class FoldingPaper:
         verts = self._rotate_verts(self.fold_angles)
         v = verts.reshape(-1, 3)
 
-        # Transform to clip space
+        # Transform to clip space: clip = proj @ view @ world
         v_h = np.pad(v, ((0, 0), (0, 1)), constant_values=1.0)
-        v_clip = v_h @ (view_mat @ proj_mat).T
+        v_clip = v_h @ view_mat.T @ proj_mat.T
         w = v_clip[:, 3:4]
-        w[w == 0] = 1e-10  # avoid division by zero
+        w[w == 0] = 1e-10
         v_ndc = v_clip[:, :3] / w
         v_screen = np.zeros_like(v_ndc)
         v_screen[:, 0] = (v_ndc[:, 0] + 1) * width / 2
