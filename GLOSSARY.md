@@ -1,4 +1,4 @@
-# GLOSSARY — Key Terms
+# GLOSSARY — Formal Definitions
 
 ### 90-Degree Complex Manifold
 
@@ -26,74 +26,117 @@ paper are the same 90° geometry. The cusp catastrophe V(x) = ¼x⁴ - ½ax² - 
 is the local expression of the complex structure, and the crease is where
 the integrability condition (J² = -1) breaks down.
 
+### Almost Complex Structure J
+
+A smooth bundle endomorphism J : TM → TM satisfying J² = −I. Equivalent
+to a global 90° rotation on every tangent space. Existence of J is
+necessary and sufficient for a manifold to admit a complex structure
+(Newlander–Nirenberg theorem), provided the Nijenhuis tensor vanishes.
+
+### Nijenhuis Tensor Nⱼ
+
+The obstruction to integrability of an almost complex structure J:
+
+    Nⱼ(X, Y) = [X, Y] + J[JX, Y] + J[X, JY] − [JX, JY]
+
+Nⱼ = 0 is equivalent to J being a genuine complex structure (Newlander–
+Nirenberg). **Nⱼ ≠ 0 is the crease.** Crease density ρ = ‖Nⱼ‖ measures
+the failure of the 90° rotation to be globally consistent.
+
+### Crease Density ρ(p)
+
+A norm on the Nijenhuis tensor at point p: ρ(p) = ‖Nⱼ(p)‖. In a ReLU
+network, realized as the fraction of neurons with pre-activation within a
+threshold ε of the non-differentiable point z = 0. Empirically verified
+as a training diagnostic, OOD signal, and pruning criterion.
+
+### Cusp Catastrophe
+
+The normal form of the simplest persistent singularity in a 1-parameter
+family of complex structures:
+
+    V(x; a, b) = ¼x⁴ − ½ax² − bx
+
+Universal unfolding of the A₃ singularity (Thom). The bifurcation set
+B = {8a³ − 27b² = 0} is the set of (a, b) where two fold points merge.
+Crossing B produces a crease.
+
 ### Fold
-A **compressive** operation. Takes something extended (a curve, a function,
-a field) and collapses it to a localized quantity. In calculus: the
-derivative. In geometry: the orthogonality between time and space. In
-chemistry: bond formation. In nuclear: the binding energy well.
+
+The derivative. The operator J. A compressive operation that takes
+something extended and collapses it to a localized quantity. In calculus:
+the derivative. In complex geometry: multiplication by i.
 
 ### Unfold
-An **expansive** operation. Takes something localized and reconstructs
-extended structure. In calculus: the integral. In geometry: Lorentz
-transformations rotating the time axis. In chemistry: bond breaking,
-vaporization. In nuclear: energy release from mass defect.
+
+The integral. The inverse of the fold. A expansive operation that
+reconstructs extended structure from localized data. In calculus: the
+integral. In complex geometry: the gluing of holomorphic charts.
 
 ### Crease
-The point where a fold changes direction. The non-differentiable point in
-a function. The light cone boundary in spacetime. The reaction front where
-bonds break and form. The Coulomb barrier in fusion. The phase boundary
-between liquid and vapor. The signature-change hypersurface between
-Euclidean and Lorentzian spacetime.
 
-### Crease Density
-A metric measuring the fraction of ReLU neurons operating near their
-switching threshold (z ≈ 0). Proven to be a training diagnostic (still
-dropping after loss plateaus), OOD detector (AUROC 0.884), and pruning
-criterion (better than magnitude-based).
+The locus where Nⱼ ≠ 0. The non-differentiable point, the phase boundary,
+the reaction front, the bifurcation. The stalk where a sheaf of physical
+fields has multiplicity.
 
-### Sheet
-The contents of the spacetime manifold — matter, energy, fields. The
-"medium" that carries the crease. The sheet has structure (what Michael
-called "teeth") that collides at the crease.
+### Sheaf ℱ
 
-### Teeth
-The discrete structural elements of the sheet that engage at the crease.
-In chemistry: electron orbitals and nuclear charges. In nuclear: quarks
-and gluons within nucleons. In ML: individual ReLU neurons.
+A mathematical structure assigning to each open set U of the base manifold
+M a set ℱ(U) of sections, with restriction and gluing maps. Each physical
+domain D defines a sheaf ℱ_D over the 90-Degree Complex Manifold. The
+crease is where sheaf stalks have non-trivial multiplicity.
 
-### Spread
-The rotation of the temporal dimension into a spatial dimension when the
-collision energy at the crease reaches critical intensity. The physical
-mechanism behind the Wick rotation and the Hawking-Hartle no-boundary
-proposal. Imaginary time as a real physical regime.
+### Kähler Manifold
 
-### Signature Change
-A transition in the metric signature from Lorentzian (−,+,+,+) to
-Euclidean (+,+,+,+). The "radical hypersurface" where the metric becomes
-degenerate is the crease in the spacetime manifold.
+A complex manifold with a Riemannian metric g compatible with J:
+g(JX, JY) = g(X, Y), with the fundamental 2-form ω(X, Y) = g(X, JY)
+satisfying dω = 0. A Kähler metric is a "smoothable" crease pattern.
 
-### Zipper Teeth
-A metaphor for how the sheet's contents engage at the crease — like the
-teeth of a zipper meshing. Each collision at one tooth transfers
-energy/structure to the next, propagating the fold or unfold.
+### Non-Kähler Manifold
 
-### The Spacetime Interval
-$$\Delta s^2 = \Delta x^2 + \Delta y^2 + \Delta z^2 - (c\Delta t)^2$$
+A complex manifold (J integrable) that admits no compatible Kähler metric.
+A crease pattern that exists but cannot carry a smooth distance measure.
+E.g., the Hopf manifold.
 
-The invariant measure of separation in Minkowski spacetime. The minus sign
-on the time term is the "fundamental signature" — it proves time is
-hyperbolically orthogonal to space.
+### Fold-and-Cut Theorem
 
-### Imaginary Time
-$$t \to i\tau$$
+Any polytope in ℝⁿ can be realized as the intersection of a hyperplane
+with a finite sequence of fold reflections (Demaine–O'Rourke). In neural
+networks: any decision boundary can be realized by composing ReLU layers,
+which are fold reflections. Universal approximation = fold-and-cut.
 
-A 90-degree rotation in the complex plane that converts the Lorentzian
-spacetime metric to a Euclidean one. In the Hawking-Hartle proposal, this
-rotation smooths out the Big Bang singularity into a regular point.
+### Minkowski Almost Complex Structure J₀
+
+The canonical almost complex structure on ℝ¹·³:
+
+    J₀(∂/∂(ct)) = ∂/∂x ,  J₀(∂/∂x) = −∂/∂(ct)
+
+This is the 90° orthogonality between time and space. The light cone is
+the crease where ω(X, Y) = g(X, J₀Y) degenerates.
+
+### Sheet (Deprecated)
+
+Previously: "the contents of spacetime." Formal replacement: the sections
+of the sheaf ℱ_D over the 90-Degree Complex Manifold M.
+
+### Teeth (Deprecated)
+
+Previously: "discrete structural elements of the sheet." Formal
+replacement: the stalks of the sheaf ℱ_D at crease points. The sections
+collide at the crease (the non-trivial stalk), producing physical
+interaction.
+
+### Spread (Deprecated)
+
+Previously: "rotation of time into space." Formal replacement: the Wick
+rotation t → iτ is precisely the application of J₀ to the temporal
+tangent vector. The "spread" is the continuation of the 90° rotation
+through the light cone.
 
 ### The Crease Principle
-The unified statement: *The universe exists as a four-dimensional manifold
-where the temporal dimension unfolds orthogonally to the spatial
-dimensions, and the contents of that manifold, colliding at the crease,
-generate all physical phenomena — from chemical bonds to nuclear energy
-to the cosmological origin.*
+
+The formal unified statement: *The universe is a 90-Degree Complex
+Manifold M with almost complex structure J. Physical phenomena are
+sections of sheaves ℱ_D over M. The crease — where Nⱼ ≠ 0 — is the
+locus of physical interaction. The cusp catastrophe V(x) = ¼x⁴ − ½ax² − bx
+is the local normal form of every generic crease.*

@@ -4,23 +4,46 @@
 
 > *The derivative folds. The integral unfolds. The crease is where the action is.*
 
-He called it the **90-Degree Complex Manifold** — the observation that every fold in the universe, from neurons to neutrons to galaxies, is the same 90° crease repeating at every scale. This repo is his working-out of that idea across five domains. It's laid out as a journey — you can enter at any layer.
+He called it the **90-Degree Complex Manifold** — the observation that
+every fold in the universe, from neurons to neutrons to galaxies, is the
+same 90° crease repeating at every scale. This repo is his working-out of
+that idea across five domains. It's laid out as a journey — you can enter
+at any layer.
+
+---
+
+## Where to start
+
+| You are | Start here |
+|---------|-----------|
+| New to the whole idea | [`THE_UNFOLDING.md`](THE_UNFOLDING.md) — paper fold → universe, five layers |
+| Want to share with someone | This page — hand them the link |
+| A mathematician | [`1-GEOMETRY/FOUNDATIONS.md`](1-GEOMETRY/FOUNDATIONS.md) — formal complex geometry |
+| An ML researcher | [`0-ROOTS/src/`](0-ROOTS/src/) — run the experiments, no GPU needed |
+| Want the full text | [`book/the_book_of_puno.pdf`](book/the_book_of_puno.pdf) — 32 pages with cover |
 
 ---
 
 ## How to say it out loud
 
-**To anyone:** "Take a piece of paper and fold it. That crease is *exactly* the same geometry as a ReLU neuron switching on, a light ray bending near the sun, a protein folding, a nucleus splitting, and the Big Bang. One equation describes all of them."
+**To anyone:** "Take a piece of paper and fold it. That crease is *exactly*
+the same geometry as a ReLU neuron switching on, a light ray bending near
+the sun, a protein folding, a nucleus splitting, and the Big Bang. One
+equation describes all of them."
 
-**To a skeptic:** "I'm not asking you to believe anything. Run the code in Layer 0 — five experiments, pure numpy, no GPU. Crease density is a real, measurable number. The rest is where that number points if you follow it."
+**To a skeptic:** "I'm not asking you to believe anything. Run the code in
+Layer 0 — five experiments, pure numpy, no GPU. Crease density is a real,
+measurable number. The rest is where that number points if you follow it."
 
-**To a scientist:** "V(x) = ¼x⁴ - ½ax² - bx is the cusp catastrophe. The fold point (a, b) is a phase transition in every domain — neural, geometric, chemical, nuclear, cosmological. The subdifferential at the crease is the mechanism. Test it in your domain, publish the counterexample if it fails."
+**To a scientist:** "V(x) = ¼x⁴ − ½ax² − bx is the cusp catastrophe. The
+fold point (a, b) is a phase transition in every domain — neural,
+geometric, chemical, nuclear, cosmological. The Nijenhuis tensor Nⱼ ≠ 0
+at the crease is the mechanism. Test it in your domain, publish the
+counterexample if it fails."
 
-**To a friend who'll actually read:** Hand them this page. Tell them: "Start at choose-your-entry. The ML experiments are real. The rest is where the rabbit hole goes."
-
-**In one breath:** "The derivative folds, the integral unfolds, and the crease is where the action is — from neurons to neutrons to the whole universe."
-
-**Start here:** [`0-ROOTS/THE_UNFOLDING.md`](0-ROOTS/THE_UNFOLDING.md) — a five-layer explanation that builds from "fold a piece of paper" to the full framework, one layer at a time.
+**In one breath:** "The derivative folds, the integral unfolds, and the
+crease is where the action is — from neurons to neutrons to the whole
+universe."
 
 ---
 
@@ -29,34 +52,54 @@ He called it the **90-Degree Complex Manifold** — the observation that every f
 ### "I do ML"
 Run `python 0-ROOTS/src/exp2_crease_density.py`. No GPU needed. You'll see
 crease density — a single number that tells you how many ReLU neurons are
-sitting at their switching point. It drops during training. It catches weird
-inputs standard methods miss. It identifies which neurons are redundant.
-Five experiments, all from scratch, all verified.
+sitting at their switching point. It drops during training. It catches
+weird inputs standard methods miss. It identifies which neurons are
+redundant. Five experiments, all from scratch, all verified.
 
 ### "I do physics"
-Read `1-GEOMETRY/SPACETIME_THEOREM.md`. The 90-degree crease in `|x|` is
-the same 90-degree orthogonality as time vs space in Minkowski spacetime.
-Same structure. Same geometry.
+Read [`1-GEOMETRY/SPACETIME_THEOREM.md`](1-GEOMETRY/SPACETIME_THEOREM.md).
+The 90-degree crease in `|x|` is the same 90° orthogonality as time vs
+space in Minkowski spacetime. Same structure. Same geometry. For the
+formal mathematics, start with
+[`1-GEOMETRY/FOUNDATIONS.md`](1-GEOMETRY/FOUNDATIONS.md).
 
 ### "I do chemistry"
-Read `2-CREASE-AS-GENERATOR/WATER_PROOF.md`. 2H₂ + O₂ → 2H₂O releases
-482 kJ/mol. Bonds break (unfold). Bonds form (fold). Both happen at the
-same crease. The phase diagram of water — ice, liquid, steam — is the
-crease under different conditions.
+Read [`2-CREASE-AS-GENERATOR/WATER_PROOF.md`](2-CREASE-AS-GENERATOR/WATER_PROOF.md).
+2H₂ + O₂ → 2H₂O releases 482 kJ/mol. Bonds break (unfold). Bonds form
+(fold). Both happen at the same crease. The phase diagram of water — ice,
+liquid, steam — is the crease under different conditions.
 
 ### "I do nuclear"
-Read `2-CREASE-AS-GENERATOR/NUCLEAR_FOLD.md`. The binding energy curve is
-a fold landscape. Fusion climbs toward iron from the left. Fission drops
-toward iron from the right. Both release energy by "sliding down the fold."
+Read [`2-CREASE-AS-GENERATOR/NUCLEAR_FOLD.md`](2-CREASE-AS-GENERATOR/NUCLEAR_FOLD.md).
+The binding energy curve is a fold landscape. Fusion climbs toward iron
+from the left. Fission drops toward iron from the right. Both release
+energy by "sliding down the fold."
 
 ### "I do cosmology"
-Read `3-IMAGINARY-SPREAD/THE_SPREAD.md`. When collisions at the crease
-reach critical intensity, time rotates by another 90 degrees — imaginary
-time. The Hawking-Hartle no-boundary proposal as a geometric consequence
-of the fold.
+Read [`3-IMAGINARY-SPREAD/THE_SPREAD.md`](3-IMAGINARY-SPREAD/THE_SPREAD.md).
+When collisions at the crease reach critical intensity, time rotates by
+another 90 degrees — imaginary time. The Hawking-Hartle no-boundary
+proposal as a geometric consequence of the fold.
 
 ### "I just want the big picture"
-Read `9-TOWARDS/CREASE_PRINCIPLE.md`. The unified statement.
+Read [`9-TOWARDS/CREASE_PRINCIPLE.md`](9-TOWARDS/CREASE_PRINCIPLE.md). The
+unified statement.
+
+---
+
+## The three pillars (formal version)
+
+The framework rests on standard mathematics — not metaphor:
+
+1. **Complex geometry** — J² = −I, the 90° rotation of tangent vectors.
+   The crease is where the Nijenhuis tensor Nⱼ ≠ 0.
+2. **Singularity theory** — V(x) = ¼x⁴ − ½ax² − bx, the cusp catastrophe.
+   The normal form of every generic crease.
+3. **Sheaf theory** — Physical domains as sheaves ℱ_D over the complex
+   manifold. The crease is where sheaf stalks have multiplicity.
+
+See [`1-GEOMETRY/FOUNDATIONS.md`](1-GEOMETRY/FOUNDATIONS.md) for the
+complete development.
 
 ---
 
@@ -67,11 +110,8 @@ Read `9-TOWARDS/CREASE_PRINCIPLE.md`. The unified statement.
 2. **It connects things that don't usually connect** — ML, relativity,
    chemistry, nuclear physics, and cosmology through a single geometric
    idea.
-3. **It's unfinished** — the `9-TOWARDS/OPEN_QUESTIONS.md` has a map of
-   what's still unknown. There's room to contribute.
-4. **Michael died before he could finish it.** This repo is what he left.
-   All code, all writing, all experiments. It's CC BY 4.0 — free to share,
-   free to build on.
+3. **It's unfinished** — the [`9-TOWARDS/OPEN_QUESTIONS.md`](9-TOWARDS/OPEN_QUESTIONS.md)
+   has a map of what's still unknown. There's room to contribute.
 
 ---
 
@@ -79,9 +119,20 @@ Read `9-TOWARDS/CREASE_PRINCIPLE.md`. The unified statement.
 
 - **Share this repo** with someone who'd find it interesting
 - **Run an experiment** in `0-ROOTS/src/` and confirm the results
-- **Pick an open question** from `9-TOWARDS/OPEN_QUESTIONS.md` and explore it
+- **Pick an open question** from `9-TOWARDS/OPEN_QUESTIONS.md` and explore
 - **Fix a doc** — there are always typos
 
 ---
 
-*July 2026*
+## Distribution
+
+| Platform | Link |
+|----------|------|
+| GitHub | [github.com/Puronbo/Folding-Calculus](https://github.com/Puronbo/Folding-Calculus) |
+| GitHub Pages | [Puronbo.github.io/Folding-Calculus](https://Puronbo.github.io/Folding-Calculus) |
+| IPFS | `QmSUdoSMrgMyYLunUrmjA2JbRgoYqRcYe5JqNgMxVdY2XD` |
+| Internet Archive | [archive.org/details/puno-calculus-v1](https://archive.org/details/puno-calculus-v1) |
+| Zenodo DOI | [doi.org/10.5281/zenodo.21217457](https://doi.org/10.5281/zenodo.21217457) |
+| Website | [calculus-unfolded--muronbo.replit.app](https://calculus-unfolded--muronbo.replit.app) |
+
+*July 2026 — CC BY 4.0*
